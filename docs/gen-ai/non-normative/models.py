@@ -460,6 +460,54 @@ class ToolDefinitions(RootModel[List[ToolDefinition]]):
 
 
 # --------------------------------------------------------------------------
+# `gen_ai.skill.definitions` model
+# --------------------------------------------------------------------------
+
+
+class SkillDefinition(BaseModel):
+    """
+    Represents an Agent Skill definition available to the GenAI agent or model.
+    Conforms to the Agent Skills specification (https://agentskills.io/specification).
+    """
+
+    name: str = Field(description="The name of the Agent Skill.")
+    description: Optional[str] = Field(
+        default=None,
+        description=(
+            "The description of the Agent Skill. "
+            "Since this attribute could be large, it's NOT RECOMMENDED to be populated by default. "
+            "Instrumentations MAY provide a way to enable populating this property."
+        ),
+    )
+    source_uri: Optional[str] = Field(
+        default=None,
+        description="The source URI or file path for loading the skill.",
+    )
+    compatibility: Optional[str] = Field(
+        default=None,
+        description="Environment and compatibility requirements for the skill.",
+    )
+    license: Optional[str] = Field(
+        default=None,
+        description="License name or reference to a bundled license file.",
+    )
+    metadata: Optional[dict[str, str]] = Field(
+        default=None,
+        description="Arbitrary key-value metadata mapping defined in the skill frontmatter.",
+    )
+
+    model_config = ConfigDict(extra="allow")
+
+
+class SkillDefinitions(RootModel[List[SkillDefinition]]):
+    """
+    Represents the list of skill definitions available to the GenAI agent or model.
+    """
+
+    pass
+
+
+# --------------------------------------------------------------------------
 # `gen_ai.retrieval.documents` model
 # --------------------------------------------------------------------------
 
@@ -558,6 +606,7 @@ SCHEMAS: dict[str, type[BaseModel]] = {
     "gen-ai-tool-call-result.json": ToolCallResult,
     "gen-ai-retrieval-documents.json": RetrievalDocuments,
     "gen-ai-memory-records.json": MemoryRecords,
+    "gen-ai-skill-definitions.json": SkillDefinitions,
 }
 
 

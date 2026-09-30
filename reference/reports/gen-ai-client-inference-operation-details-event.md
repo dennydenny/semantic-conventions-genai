@@ -64,6 +64,7 @@
 | gen_ai.input.messages | [anthropic], [aws-bedrock], [azure-ai-inference], [cohere], [google-genai], [groq], [litellm], [mistralai], [openai], [vertexai] |
 | gen_ai.output.messages | [anthropic], [aws-bedrock], [azure-ai-inference], [cohere], [google-genai], [groq], [litellm], [mistralai], [openai], [vertexai] |
 | gen_ai.prompt.variable | (none) |
+| gen_ai.skill.definitions | (none) |
 | gen_ai.system_instructions | (none) |
 | gen_ai.tool.definitions | (none) |
 
