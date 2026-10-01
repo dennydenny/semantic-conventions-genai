@@ -483,7 +483,7 @@ class SkillDefinition(BaseModel):
     )
     source_uri: Optional[str] = Field(
         default=None,
-        description="The source URI or file path for loading the skill.",
+        description="The source URI for loading the skill.",
     )
     compatibility: Optional[str] = Field(
         default=None,
