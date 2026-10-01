@@ -58,7 +58,7 @@
 | <a id="gen-ai-retrieval-documents" href="#gen-ai-retrieval-documents">`gen_ai.retrieval.documents`</a> | ![Development](https://img.shields.io/badge/-development-blue) | any | The documents retrieved. [27] | [<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id": "doc_123",<br>&nbsp;&nbsp;&nbsp;&nbsp;"score": 0.95<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id": "doc_456",<br>&nbsp;&nbsp;&nbsp;&nbsp;"score": 0.87<br>&nbsp;&nbsp;},<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"id": "doc_789",<br>&nbsp;&nbsp;&nbsp;&nbsp;"score": 0.82<br>&nbsp;&nbsp;}<br>] |
 | <a id="gen-ai-retrieval-query-text" href="#gen-ai-retrieval-query-text">`gen_ai.retrieval.query.text`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The query text used for retrieval. [28] | `What is the capital of France?`; `weather in Paris` |
 | <a id="gen-ai-retrieval-top-k" href="#gen-ai-retrieval-top-k">`gen_ai.retrieval.top_k`</a> | ![Development](https://img.shields.io/badge/-development-blue) | int | The maximum number of documents the retriever was asked to return for the query (also known as `k`, `limit`, or `max_num_results`). | `5` |
-| <a id="gen-ai-skill-definitions" href="#gen-ai-skill-definitions">`gen_ai.skill.definitions`</a> | ![Development](https://img.shields.io/badge/-development-blue) | any | The list of skill definitions available to the GenAI agent or model. [29] | [<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"name": "code-review",<br>&nbsp;&nbsp;&nbsp;&nbsp;"description": "Review a changelist against the team's review policy.",<br>&nbsp;&nbsp;&nbsp;&nbsp;"source_uri": "https://skills.example.com/code-review",<br>&nbsp;&nbsp;&nbsp;&nbsp;"compatibility": "Requires git, docker, jq"<br>&nbsp;&nbsp;}<br>] |
+| <a id="gen-ai-skill-definitions" href="#gen-ai-skill-definitions">`gen_ai.skill.definitions`</a> | ![Development](https://img.shields.io/badge/-development-blue) | any | The list of skill definitions available to the GenAI agent. [29] | [<br>&nbsp;&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;"name": "code-review",<br>&nbsp;&nbsp;&nbsp;&nbsp;"description": "Review a changelist against the team's review policy.",<br>&nbsp;&nbsp;&nbsp;&nbsp;"source_uri": "https://skills.example.com/code-review",<br>&nbsp;&nbsp;&nbsp;&nbsp;"compatibility": "Requires git, docker, jq"<br>&nbsp;&nbsp;}<br>] |
 | <a id="gen-ai-skill-description" href="#gen-ai-skill-description">`gen_ai.skill.description`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The [description of the Agent Skill](https://agentskills.io/specification#skill-md-format). [30] | `Review a changelist against the team's review policy.` |
 | <a id="gen-ai-skill-name" href="#gen-ai-skill-name">`gen_ai.skill.name`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The name of the [Agent Skill](https://agentskills.io/specification#skill-md-format). | `code-review`; `pdf-processing` |
 | <a id="gen-ai-skill-resource-name" href="#gen-ai-skill-resource-name">`gen_ai.skill.resource.name`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The skill-relative name of the resource (script, reference, or asset) being accessed or executed. | `references/review_policy.md`; `assets/report_template.html` |
@@ -272,9 +272,10 @@ When the attribute is recorded on events, it MUST be recorded in structured form
 > [!WARNING]
 > This attribute may contain sensitive information.
 
-Since this attribute could be large, it's NOT RECOMMENDED to populate
-non-required properties by default. Instrumentations MAY provide a way
-to enable populating optional properties.
+Each definition follows the [Agent Skills specification](https://agentskills.io/specification):
+`name` and `description` are required. Since this attribute could be large,
+it's NOT RECOMMENDED to populate other properties by default.
+Instrumentations MAY provide a way to enable populating optional properties.
 
 Instrumentations MUST follow [JSON schema](/model/gen-ai/gen-ai-skill-definitions.json).
 

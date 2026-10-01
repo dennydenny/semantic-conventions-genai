@@ -466,18 +466,20 @@ class ToolDefinitions(RootModel[List[ToolDefinition]]):
 
 class SkillDefinition(BaseModel):
     """
-    Represents an Agent Skill definition available to the GenAI agent or model.
+    Represents an Agent Skill definition available to the GenAI agent.
     Conforms to the Agent Skills specification (https://agentskills.io/specification).
     """
 
-    name: str = Field(description="The name of the Agent Skill.")
-    description: Optional[str] = Field(
-        default=None,
-        description=(
-            "The description of the Agent Skill. "
-            "Since this attribute could be large, it's NOT RECOMMENDED to be populated by default. "
-            "Instrumentations MAY provide a way to enable populating this property."
-        ),
+    name: str = Field(
+        description="The name of the Agent Skill.",
+        min_length=1,
+        max_length=64,
+        pattern=r"^[a-z0-9]+(-[a-z0-9]+)*$",
+    )
+    description: str = Field(
+        description="What the Agent Skill does and when to use it.",
+        min_length=1,
+        max_length=1024,
     )
     source_uri: Optional[str] = Field(
         default=None,
@@ -486,6 +488,8 @@ class SkillDefinition(BaseModel):
     compatibility: Optional[str] = Field(
         default=None,
         description="Environment and compatibility requirements for the skill.",
+        min_length=1,
+        max_length=500,
     )
     license: Optional[str] = Field(
         default=None,
@@ -495,13 +499,18 @@ class SkillDefinition(BaseModel):
         default=None,
         description="Arbitrary key-value metadata mapping defined in the skill frontmatter.",
     )
+    allowed_tools: Optional[str] = Field(
+        default=None,
+        alias="allowed-tools",
+        description="Space-separated list of pre-approved tools the skill may use. Experimental.",
+    )
 
-    model_config = ConfigDict(extra="allow")
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
 
 
 class SkillDefinitions(RootModel[List[SkillDefinition]]):
     """
-    Represents the list of skill definitions available to the GenAI agent or model.
+    Represents the list of skill definitions available to the GenAI agent.
     """
 
     pass

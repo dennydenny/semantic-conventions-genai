@@ -2,25 +2,22 @@
     "$defs": {
         "SkillDefinition": {
             "additionalProperties": true,
-            "description": "Represents an Agent Skill definition available to the GenAI agent or model.\nConforms to the Agent Skills specification (https://agentskills.io/specification).",
+            "description": "Represents an Agent Skill definition available to the GenAI agent.\nConforms to the Agent Skills specification (https://agentskills.io/specification).",
             "properties": {
                 "name": {
                     "description": "The name of the Agent Skill.",
+                    "maxLength": 64,
+                    "minLength": 1,
+                    "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
                     "title": "Name",
                     "type": "string"
                 },
                 "description": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "description": "The description of the Agent Skill. Since this attribute could be large, it's NOT RECOMMENDED to be populated by default. Instrumentations MAY provide a way to enable populating this property.",
-                    "title": "Description"
+                    "description": "What the Agent Skill does and when to use it.",
+                    "maxLength": 1024,
+                    "minLength": 1,
+                    "title": "Description",
+                    "type": "string"
                 },
                 "source_uri": {
                     "anyOf": [
@@ -38,6 +35,8 @@
                 "compatibility": {
                     "anyOf": [
                         {
+                            "maxLength": 500,
+                            "minLength": 1,
                             "type": "string"
                         },
                         {
@@ -76,16 +75,30 @@
                     "default": null,
                     "description": "Arbitrary key-value metadata mapping defined in the skill frontmatter.",
                     "title": "Metadata"
+                },
+                "allowed-tools": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "Space-separated list of pre-approved tools the skill may use. Experimental.",
+                    "title": "Allowed-Tools"
                 }
             },
             "required": [
-                "name"
+                "name",
+                "description"
             ],
             "title": "SkillDefinition",
             "type": "object"
         }
     },
-    "description": "Represents the list of skill definitions available to the GenAI agent or model.",
+    "description": "Represents the list of skill definitions available to the GenAI agent.",
     "items": {
         "$ref": "#/$defs/SkillDefinition"
     },
