@@ -1117,13 +1117,15 @@ attributes:
     stability: development
   - key: gen_ai.skill.definitions
     type: any
-    brief: The list of skill definitions available to the GenAI agent.
+    brief: The list of skill definitions available to the GenAI agent when the invocation started.
     annotations:
       type:
         json_schema: model/gen-ai/gen-ai-skill-definitions.json
     note: |
       > [!WARNING]
       > This attribute may contain sensitive information.
+
+      Skills added or removed during the invocation are not reflected.
 
       Each definition follows the [Agent Skills specification](https://agentskills.io/specification):
       `name` and `description` are required. Since this attribute could be large,

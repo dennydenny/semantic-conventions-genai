@@ -29,7 +29,7 @@
                         }
                     ],
                     "default": null,
-                    "description": "The source URI or file path for loading the skill.",
+                    "description": "The source URI for loading the skill.",
                     "title": "Source Uri"
                 },
                 "compatibility": {
